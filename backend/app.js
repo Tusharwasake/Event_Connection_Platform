@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { router } from "./routes/authroutes.js";
 
 import "dotenv/config";
 import { db } from "./database/datatase.js";
-import { router } from "./routes/authroutes.js";
 
 //.env files
 const SERVER_PORT = process.env.PORT;

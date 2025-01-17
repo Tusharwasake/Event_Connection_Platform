@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser()); // Parse cookies
 
-//routes
+//routes for user
 
 app.use("/user", router);
 

@@ -27,6 +27,7 @@ app.listen(SERVER_PORT, () => {
   try {
     console.log(`server started at: http://localhost:${SERVER_PORT}`);
     db(); // database connection
+    console.log("mongo connected again");
   } catch (error) {
     console.log("fail to start the server", message.error);
   }

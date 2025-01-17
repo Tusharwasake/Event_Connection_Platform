@@ -6,6 +6,7 @@ import {
   logout,
 } from "../controllers/authControllers.js";
 
+
 const router = Router();
 
 router.post("/signup", signup);

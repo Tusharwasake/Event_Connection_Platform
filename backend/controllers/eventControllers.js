@@ -89,7 +89,7 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
   try {
     const { eventId } = req.params;
-    console.log(eventId);
+    // console.log(eventId);
     const deleteEvent = await eventModel.findByIdAndDelete(eventId);
 
     if (!deleteEvent) {

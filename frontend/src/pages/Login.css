@@ -1,0 +1,152 @@
+/* Background for the login page */
+.login-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff99ac);
+  font-family: "Poppins", sans-serif;
+  animation: gradientShift 4s infinite alternate;
+}
+
+/* Background animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Login form styles */
+.login-form {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  animation: formZoomIn 1.5s ease-out;
+  position: relative;
+}
+
+/* Form zoom-in animation */
+@keyframes formZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Form group input fields */
+.form-group {
+  margin-bottom: 1.8rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #ff6a88;
+  box-shadow: 0 0 10px rgba(255, 106, 136, 0.4);
+  outline: none;
+}
+
+/* Submit button */
+.submit-button {
+  background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(255, 106, 136, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(255, 106, 136, 0.2);
+}
+
+/* Error message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Error message shake animation */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+/* Redirect container */
+.redirect-container {
+  position: absolute;
+  top: 85%; /* Adjust to place the text in the middle */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation: fadeUp 1.5s ease-in-out;
+}
+
+/* Fade-up animation for redirect text */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Redirect text at the bottom */
+.redirect-text {
+  font-size: 1rem;
+  color: #e6d6d6;
+}
+
+.redirect-text .signup-link {
+  color: #280209;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.redirect-text .signup-link:hover {
+  color: #5c0419;
+}

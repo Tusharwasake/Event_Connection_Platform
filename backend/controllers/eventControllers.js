@@ -62,4 +62,48 @@ const getEvents = async (req, res) => {
   }
 };
 
-export { eventCreation, getEvents };
+const updateEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const updateData = req.body;
+
+    const updatedEvent = await eventModel.findByIdAndUpdate(
+      eventId,
+      updateData
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({
+      message: "Event updated successfully",
+      event: updatedEvent,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const deleteEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    // console.log(eventId);
+    const deleteEvent = await eventModel.findByIdAndDelete(eventId);
+
+    if (!deleteEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({
+      message: "Event deleted successfully",
+      deleteEvent,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export { eventCreation, getEvents, updateEvent, deleteEvent };

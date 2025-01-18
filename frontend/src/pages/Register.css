@@ -1,0 +1,142 @@
+/* Background styling */
+.register-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  font-family: "Poppins", sans-serif;
+  animation: gradientAnimation 5s infinite alternate;
+  overflow: hidden;
+}
+
+/* Background animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Form container */
+.register-form {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out;
+  position: relative;
+}
+
+/* Form fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title styling */
+.register-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #0072ff;
+  animation: slideInFromTop 1s ease-out;
+}
+
+/* Slide-in animation */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem; /* Adjusted padding for better spacing */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 10px rgba(0, 114, 255, 0.4);
+  outline: none;
+}
+
+/* Submit button */
+.submit-button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 114, 255, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 114, 255, 0.2);
+}
+
+/* Redirect text */
+.redirect-text {
+  margin-top: 1.5rem; /* Positioned slightly closer to the Register button */
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  animation: fadeInText 1.5s ease-in;
+}
+
+/* Redirect text animation */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.redirect-text .login-link {
+  color: #0072ff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.redirect-text .login-link:hover {
+  color: #00c6ff;
+  text-decoration: underline;
+}

@@ -1,5 +1,6 @@
 import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
+
 import { userModel } from "../models/userModel.js";
 import "dotenv/config";
 
@@ -7,7 +8,7 @@ const signup = async (req, res) => {
   const { email, password, role } = req.body;
 
   if (!role || !email || !password) {
-    return res.status(400).json({ msg: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   const existingUser = await userModel.findOne({ email });
@@ -28,7 +29,7 @@ const signup = async (req, res) => {
     const createData = await userModel.create(payload);
 
     res.status(201).json({
-      msg: "Your Account Created Successfully",
+      message: "Your Account Created Successfully",
       payload: createData,
     });
   } catch (error) {
@@ -39,7 +40,10 @@ const signup = async (req, res) => {
 // Function to generate a new access token
 const generateAccessToken = (user) => {
   return jwt.sign(
-    { userId: user._Id, role: user.role },
+    {
+      userId: user._id,
+      role: user.role,
+    },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "15m" } // Access token valid for 15 minutes
   );
@@ -58,7 +62,7 @@ const login = async (req, res) => {
 
   // Validate input
   if (!email || !password) {
-    return res.status(400).json({ msg: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
@@ -66,17 +70,18 @@ const login = async (req, res) => {
     const fetchUser = await userModel.findOne({ email }); // Add `await`
 
     if (!fetchUser) {
-      return res.status(404).json({ msg: "User not found" }); // Handle user not found
+      return res.status(404).json({ message: "User not found" }); // Handle user not found
     }
 
     // Verify the password
     const verify = await argon2.verify(fetchUser.password, password);
     if (!verify) {
-      return res.status(401).json({ msg: "Invalid credentials" }); // Handle incorrect password
+      return res.status(401).json({ message: "Invalid credentials" }); // Handle incorrect password
     }
 
     // Generate tokens
     const accessToken = generateAccessToken(fetchUser);
+
     const refreshToken = generateRefreshToken(fetchUser);
 
     res.cookie("refreshToken", refreshToken, {
@@ -90,6 +95,7 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       accessToken,
+      refreshToken,
       user: {
         id: fetchUser._id,
         email: fetchUser.email,

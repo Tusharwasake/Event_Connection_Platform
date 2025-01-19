@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 const mailsender = async (to, subject, code) => {
   const mailOptions = {
     from: '"Tushar wasake" <tusharwasake@gmail.com>', // Sender address
-    to: "rajang797@gmail.com",
+    to: "tusharwasake@gmail.com",
     subject: "Event joining Credential", // Subject line
     text: "Hello! This is the plain text content.", // Fallback plain text
     html: `
@@ -64,7 +64,6 @@ const participants = async (req, res) => {
     // console.log(req.user);
     const eventId = req.body.eventId;
     const userId = req.user.userId;
-    
 
     const newParticipant = await participantModel.create({
       eventId: eventId,

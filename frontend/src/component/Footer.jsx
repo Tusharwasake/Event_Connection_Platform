@@ -18,18 +18,10 @@ const Footer = () => {
           <div className="footer-column">
             <h3>Quick Links</h3>
             <ul className="footer-links">
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/event">Event</a>
-              </li>
-              <li>
-                <a href="/event">Booking</a>
-              </li>
-              <li>
-                <a href="/help">Help</a>
-              </li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/event">Event</a></li>
+              <li><a href="/event">Booking</a></li>
+              <li><a href="/help">Help</a></li>
             </ul>
           </div>
 

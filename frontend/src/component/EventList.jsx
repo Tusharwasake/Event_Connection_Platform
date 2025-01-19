@@ -99,7 +99,7 @@ const EventList = () => {
 
   return (
     <div className="container">
-      <h1>Fetched Events</h1>
+      <h1>All Events</h1>
 
       {/* Search Bar */}
       <div className="search-container">

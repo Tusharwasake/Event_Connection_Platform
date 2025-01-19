@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // Page Components
 import Login from "./pages/Login";
@@ -8,12 +8,11 @@ import Home from "./pages/Home";
 import HelpCenter from "./pages/HelpCenter";
 import FindEvents from "./pages/FindEvents";
 import Profile from "./pages/Profile";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/AdminDashboard";
 import FeaturedEvents from "./component/FeaturedEvent";
 
 // Component-Level Features
 import CreateEventForm from "./component/CreateEventForm";
-// import Header from './component/Header';
 import EventCard from './component/EventCard';
 import EventList from "./component/EventList";
 import Footer from "./component/Footer";
@@ -22,13 +21,21 @@ import Music from "./event/Musics";
 import CreateEvent from "./pages/CreateEvent";
 import Features from "./pages/Features";
 import Nightlife from "./event/NightLife";
-
+import CategoriesPage from "./pages/CategoriesPage";
+import AdminLogin from "./pages/AdminLogin";
+import AdminSignUp from "./pages/AdminSignUp";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => {
+  const location = useLocation();
+
+  
+  const hideNavbar = location.pathname === "/login" || location.pathname === "/register";
+
   return (
     <div>
-      {/* Global Header */}
-      {/* <Navbar /> */}
+      {/* Conditionally Render Navbar */}
+      {!hideNavbar && <Navbar />}
 
       {/* Application Routes */}
       <Routes>
@@ -49,13 +56,14 @@ const App = () => {
         <Route path="/mansab" element={<Features />} />
         <Route path="/nightlife" element={<Nightlife />} />
         <Route path="/help" element={<HelpCenter />} />
-        
-        
-        
-        
-
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/login" element={<AdminLogin />} />
+      <Route path="/signup" element={<AdminSignUp />} />
+      <Route path="/dashboard" element={<AdminDashboard />} />
       </Routes>
-      <Footer/>
+
+      {/* Global Footer */}
+      <Footer />
     </div>
   );
 };

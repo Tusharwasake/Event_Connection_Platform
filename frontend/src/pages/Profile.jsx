@@ -123,7 +123,7 @@ const Profile = () => {
   return (
     <div className="social-media-app">
       {/* Navbar */}
-      <nav className="navbar">
+      {/* <nav className="navbar">
         <div className="navbar-container">
           <h1 className="logo">SocialApp</h1>
           <div className="search-container">
@@ -141,7 +141,7 @@ const Profile = () => {
             <Mail className="icon" />
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Main Content */}
       <div className="container">

@@ -65,7 +65,7 @@ function Musics() {
                   className="bg-gray-800 rounded-full pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <button 
+              {/* <button 
                 onClick={() => handleSectionClick('trending')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
                   activeSection === 'trending' ? 'bg-blue-600' : 'hover:bg-gray-800'
@@ -73,8 +73,8 @@ function Musics() {
               >
                 <TrendingUp className="w-5 h-5" />
                 Trending
-              </button>
-              <button 
+              </button> */}
+              {/* <button 
                 onClick={() => handleSectionClick('events')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
                   activeSection === 'events' ? 'bg-blue-600' : 'hover:bg-gray-800'
@@ -84,7 +84,7 @@ function Musics() {
               </button>
               <button className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors">
                 <User className="w-5 h-5" />
-              </button>
+              </button> */}
             </div>
           </nav>
 

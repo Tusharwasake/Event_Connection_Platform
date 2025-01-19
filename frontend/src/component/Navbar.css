@@ -1,192 +1,176 @@
-/* General Navbar Styling */
+/* Navbar.css */
+
+/* General Styles */
 .navbar {
-  background: linear-gradient(135deg, #1a1a2e, #16213e); /* Darker gradient */
-  color: white;
-  padding: 6px 20px; /* Reduced height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #4CAF50; /* Navbar background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
 }
 
-/* Navbar Container */
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
 }
 
-/* Logo Styling */
+/* Logo Section */
 .logo {
-  font-size: 1.6rem; /* Slightly smaller */
+  font-size: 1.5rem;
   font-weight: bold;
-  color: white;
-  transition: transform 0.3s ease-in-out;
+  color: #fff;
+  margin-right: auto;
 }
 
 .logo a {
   text-decoration: none;
-  color: white;
-}
-
-.logo:hover {
-  transform: scale(1.1);
+  color: inherit;
 }
 
 /* Search Bar */
 .search-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  background: #ffffff;
+  gap: 0.8rem;
+  margin: 0 auto;
+  max-width: 500px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar .icon {
+  font-size: 1.4rem;
+  color: #4CAF50;
 }
 
 .search-input {
-  width: 220px; /* Adjusted width */
-  padding: 6px; /* Reduced padding */
-  border-radius: 5px;
   border: none;
   outline: none;
-  background: #252934; /* Darker background */
-  color: white;
-  transition: box-shadow 0.3s ease, background 0.3s ease;
+  font-size: 1rem;
+  background: none;
+  flex-grow: 1;
+  color: #333;
 }
 
-.search-input::placeholder {
-  color: #888;
-}
-
-.search-input:focus {
-  background: #333;
-  box-shadow: 0 0 10px rgba(22, 33, 62, 0.5); /* Dark glow */
-}
-
-/* Divider */
-.divider {
-  height: 18px; /* Reduced height */
+.search-bar .divider {
+  height: 24px;
   width: 1px;
-  background-color: white;
+  background: #ddd;
 }
 
 .location {
-  font-size: 0.85rem; /* Reduced font size */
-  color: white;
+  font-size: 1rem;
+  color: #4CAF50;
+  font-weight: 500;
 }
 
 /* Navigation Links */
 .nav-links {
   display: flex;
-  gap: 15px;
   align-items: center;
   list-style: none;
-  transition: all 0.3s ease-in-out;
+  gap: 1.5rem;
+  margin-left: auto;
 }
 
 .nav-links.active {
-  display: block;
+  flex-direction: column;
+  background: #fff;
   position: absolute;
-  top: 50px;
-  right: 10px;
-  background: #16213e; /* Darker background for dropdown */
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  top: 100%;
+  right: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 1rem;
 }
 
 .nav-item {
-  font-size: 0.85rem; /* Reduced font size */
-  color: white;
+  font-size: 1rem;
+  color: #fff;
   text-decoration: none;
-  padding: 5px 10px;
-  transition: color 0.3s, background 0.3s;
-  border-radius: 5px;
+  transition: color 0.3s;
 }
 
 .nav-item:hover {
-  color: #fca311; /* Highlight color */
-  background: rgba(255, 255, 255, 0.1);
+  color: #DFFFD6; /* Light green for hover */
 }
 
 /* Auth Buttons */
 .auth-btn {
-  font-size: 0.8rem; /* Smaller font size */
-  padding: 6px 14px;
-  border-radius: 15px;
+  border: 1px solid #fff; /* White border for visibility */
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  text-decoration: none;
-  font-weight: bold;
   transition: all 0.3s;
+  background: #66BB6A; /* Consistent green shade */
+  color: #fff;
+}
+
+.auth-btn:hover {
+  background: #4CAF50;
+  border-color: #fff;
 }
 
 .signin-btn {
-  background: #4caf50; /* Darker green */
-  color: white;
+  background: #66BB6A;
+  color: #fff;
 }
 
 .signin-btn:hover {
-  background: #388e3c; /* Dark hover */
+  background: #4CAF50;
+  border-color: #fff;
 }
 
 .logout-btn {
-  background: #e63946; /* Softer red */
-  color: white;
-  border: none;
+  background: #66BB6A;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 .logout-btn:hover {
-  background: #b02630; /* Dark hover */
+  background: #4CAF50;
+  border-color: #fff;
 }
 
-/* Burger Menu for Mobile */
+/* Burger Menu */
 .burger-menu {
   display: none;
-  font-size: 1.5rem;
-  color: white;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .burger-menu {
-    display: block;
+.burger-line {
+  height: 3px;
+  width: 100%;
+  background: #fff; /* Updated to white for visibility */
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .search-bar {
+    display: none;
   }
 
   .nav-links {
     display: none;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    background: #1a1a2e; /* Matching dark gradient */
-    border-radius: 8px;
-    position: absolute;
-    right: 20px;
-    top: 50px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   }
 
-  .nav-links.active {
+  .burger-menu {
     display: flex;
   }
-
-  .nav-item {
-    text-align: center;
-    padding: 8px 12px;
-    border-radius: 5px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  .nav-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fca311;
-  }
-}
-
-/* Additional Styling for Smooth Transitions */
-.navbar:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-}
-
-.navbar-container .nav-links li:hover {
-  transform: translateY(-2px);
 }

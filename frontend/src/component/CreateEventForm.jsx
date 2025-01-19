@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./createevent.css"
 
 const CreateEventForm = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const CreateEventForm = () => {
       const jsonPayload = decodeURIComponent(
         atob(base64)
           .split("")
-          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
           .join("")
       );
       return JSON.parse(jsonPayload);
@@ -47,7 +48,6 @@ const CreateEventForm = () => {
     }
 
     const decodedToken = decodeJWT(token);
-    console.log("Decoded Token:", decodedToken);
 
     if (!decodedToken || decodedToken.exp * 1000 < Date.now()) {
       setMessage("Your session has expired. Please log in again.");
@@ -78,7 +78,6 @@ const CreateEventForm = () => {
       );
 
       setMessage("Event created successfully!");
-      console.log("Event Created:", response.data);
       setFormData({
         name: "",
         location: "",
@@ -97,19 +96,16 @@ const CreateEventForm = () => {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
+    <div className="create-event-form">
       <h1>Create Event</h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
+      <form onSubmit={handleSubmit} className="form-container">
         <input
           type="text"
           placeholder="Event Name"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <input
           type="text"
@@ -117,7 +113,7 @@ const CreateEventForm = () => {
           value={formData.location}
           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <textarea
           placeholder="Description"
@@ -126,12 +122,7 @@ const CreateEventForm = () => {
             setFormData({ ...formData, description: e.target.value })
           }
           required
-          style={{
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            minHeight: "100px",
-          }}
+          className="textarea-field"
         />
         <input
           type="datetime-local"
@@ -140,14 +131,14 @@ const CreateEventForm = () => {
             setFormData({ ...formData, startDate: e.target.value })
           }
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <input
           type="datetime-local"
           value={formData.endDate}
           onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <input
           type="text"
@@ -155,7 +146,7 @@ const CreateEventForm = () => {
           value={formData.category}
           onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <input
           type="text"
@@ -165,25 +156,18 @@ const CreateEventForm = () => {
             setFormData({ ...formData, imageUrl: e.target.value })
           }
           required
-          style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
+          className="input-field"
         />
         <button
           type="submit"
-          style={{
-            padding: "10px",
-            backgroundColor: loading ? "#ccc" : "#007BFF",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: loading ? "not-allowed" : "pointer",
-          }}
+          className={`submit-button ${loading ? "disabled" : ""}`}
           disabled={loading}
         >
           {loading ? "Creating Event..." : "Create Event"}
         </button>
       </form>
       {message && (
-        <p style={{ marginTop: "10px", color: message.includes("successfully") ? "green" : "red" }}>
+        <p className={`message ${message.includes("successfully") ? "success" : "error"}`}>
           {message}
         </p>
       )}

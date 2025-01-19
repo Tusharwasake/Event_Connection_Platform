@@ -23,32 +23,33 @@
 /* Form container */
 .register-form {
   background: rgba(255, 255, 255, 0.95);
-  padding: 2.8rem;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
   text-align: center;
-  animation: fadeIn 1.5s ease-out;
+  animation: fadeIn 1s ease-out;
   position: relative;
+  z-index: 1;
 }
 
 /* Form fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
 /* Title styling */
 .register-title {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
   color: #ff7e5f;
   animation: slideInFromTop 1s ease-out;
 }
@@ -57,7 +58,7 @@
 @keyframes slideInFromTop {
   from {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
@@ -67,23 +68,32 @@
 
 /* Form inputs */
 .form-group {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 1rem;
+  padding: 0.9rem 1.2rem; /* Equal padding for all input types */
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fdfdfd;
-  color: #333;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.form-group input:focus {
+textarea {
+  resize: none; /* Prevent text areas from being resized */
+  height: 120px; /* Equal height for text areas */
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: #feb47b;
-  box-shadow: 0 0 12px rgba(254, 180, 123, 0.5);
+  box-shadow: 0 0 10px rgba(254, 180, 123, 0.6);
   outline: none;
 }
 
@@ -92,43 +102,31 @@
   background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: #fff;
   border: none;
-  padding: 0.9rem 2.2rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 1rem;
+  box-shadow: 0 6px 15px rgba(255, 126, 95, 0.3);
 }
 
 .submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(254, 180, 123, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 126, 95, 0.5);
 }
 
 .submit-button:active {
   transform: translateY(0);
-  box-shadow: 0 5px 12px rgba(254, 180, 123, 0.3);
+  box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
 }
 
 /* Redirect text */
 .redirect-text {
-  margin-top: 1.8rem;
-  font-size: 1.1rem;
-  color: #666;
-  text-align: center;
-  animation: fadeInText 1.5s ease-in;
-}
-
-/* Redirect text animation */
-@keyframes fadeInText {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  color: #555;
 }
 
 .redirect-text .login-link {
@@ -147,33 +145,30 @@
 .shape {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   animation: float 8s infinite ease-in-out;
   z-index: 0;
 }
 
 .shape-1 {
-  width: 180px;
-  height: 180px;
-  top: 15%;
-  left: 25%;
-  background: rgba(255, 126, 95, 0.3); /* Soft pink-orange */
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 20%;
 }
 
 .shape-2 {
-  width: 120px;
-  height: 120px;
-  bottom: 20%;
-  right: 30%;
-  background: rgba(254, 180, 123, 0.3); /* Soft orange-yellow */
+  width: 150px;
+  height: 150px;
+  bottom: 15%;
+  right: 25%;
 }
 
 .shape-3 {
   width: 250px;
   height: 250px;
-  top: 40%;
-  left: 65%;
-  background: rgba(255, 126, 95, 0.15); /* Faint orange */
+  top: 50%;
+  left: 60%;
 }
 
 @keyframes float {
@@ -191,20 +186,23 @@
 /* Responsive design */
 @media screen and (max-width: 480px) {
   .register-form {
-    padding: 2rem;
+    padding: 1.8rem;
     width: 90%;
   }
 
-  .form-group input {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
     font-size: 0.9rem;
+    padding: 0.7rem 1rem;
   }
 
   .submit-button {
     font-size: 0.9rem;
-    padding: 0.8rem 1.8rem;
+    padding: 0.7rem 1.2rem;
   }
 
   .redirect-text {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 }

@@ -1,6 +1,6 @@
 import { participantModel } from "../models/participantsModel.js";
 import { eventModel } from "../models/eventModel.js";
-// import { mailsender } from "../features/nodemailer.js";
+
 import "dotenv/config";
 
 import nodemailer from "nodemailer";
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 const mailsender = async (to, subject, code) => {
   const mailOptions = {
     from: '"Tushar wasake" <tusharwasake@gmail.com>', // Sender address
-    to: "tusharwasake@gmail.com",
+    to: "rajang797@gmail.com",
     subject: "Event joining Credential", // Subject line
     text: "Hello! This is the plain text content.", // Fallback plain text
     html: `
@@ -30,6 +30,7 @@ const mailsender = async (to, subject, code) => {
         <p style="color: blue;">This your 4 Digit Code: ${code}  <a href="https://www.linkup.com">https://www.linkup.com</a></p>
     `, // HTML body content
   };
+
   try {
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent successfully:", info.response);
@@ -63,6 +64,7 @@ const participants = async (req, res) => {
     // console.log(req.user);
     const eventId = req.body.eventId;
     const userId = req.user.userId;
+    
 
     const newParticipant = await participantModel.create({
       eventId: eventId,

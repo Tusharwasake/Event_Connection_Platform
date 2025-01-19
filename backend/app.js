@@ -7,6 +7,7 @@ import { participantRouter } from "./routes/participants.js";
 import "dotenv/config";
 import { db } from "./database/datatase.js";
 import { eventRouter } from "./routes/eventRoutes.js";
+import { filterRoutes } from "./routes/filterRoutes.js";
 
 //.env files
 const SERVER_PORT = process.env.PORT;
@@ -25,7 +26,7 @@ app.use(cookieParser()); // Parse cookies
 app.use("/user", router);
 app.use("/participants", participantRouter);
 app.use("/events", eventRouter);
-
+app.use("/filter", filterRoutes);
 
 //server Start
 app.listen(SERVER_PORT, () => {
@@ -36,6 +37,3 @@ app.listen(SERVER_PORT, () => {
     console.log("fail to start the server", message.error);
   }
 });
-
-
-

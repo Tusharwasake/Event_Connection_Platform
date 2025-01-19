@@ -1,107 +1,162 @@
 /* General Styling */
 .help-center-container {
-    font-family: Arial, sans-serif;
-    margin: 0 auto;
-    padding: 2rem;
-    max-width: 800px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 800px;
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Header Section */
+.help-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.help-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #007bff;
+}
+
+.help-header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* FAQ Section */
+.faq-section {
+  margin-bottom: 3rem;
+  animation: slideIn 1.2s ease-in-out;
+}
+
+.faq-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: scale(1.02);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: linear-gradient(135deg, #cce7ff, #e3f2fd);
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0056b3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question:hover {
+  background: linear-gradient(135deg, #99d6ff, #cce7ff);
+}
+
+.faq-answer {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-left: 4px solid #007bff;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Contact Section */
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #007bff;
+  animation: slideIn 1s ease-in-out;
+}
+
+.contact-form .form-group {
+  margin-bottom: 1rem;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #ffffff, #f0f8ff);
+  color: #333;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: none;
+}
+
+.submit-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #0056b3, #003f8a);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 123, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* Header Section */
-  .help-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .help-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
   }
-  
-  .help-header p {
-    font-size: 1.2rem;
-    color: #555;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  /* FAQ Section */
-  .faq-section {
-    margin-bottom: 3rem;
-  }
-  
-  .faq-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .faq-item {
-    margin-bottom: 1rem;
-  }
-  
-  .faq-question {
-    width: 100%;
-    text-align: left;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 0.75rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .faq-question:hover {
-    background-color: #e7e7e7;
-  }
-  
-  .faq-answer {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background-color: #f9f9f9;
-    border-left: 4px solid #007bff;
-    font-size: 0.9rem;
-  }
-  
-  /* Contact Section */
-  .contact-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .contact-form .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .contact-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .contact-form textarea {
-    resize: none;
-  }
-  
-  .submit-button {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
+}

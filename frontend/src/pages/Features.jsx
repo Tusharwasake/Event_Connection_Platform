@@ -4,7 +4,7 @@ const Features = () => {
   return (
     <div>
       <h1>Features</h1>
-      <p>Explore all the amazing features of our platform.</p>
+      <h2 className="text-2xl font-bold mb-6">MANSAB</h2>
     </div>
   );
 };

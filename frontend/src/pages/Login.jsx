@@ -16,16 +16,16 @@ const Login = () => {
     try {
       const res = await axios.post(
         "https://two447-event-connection-platform-2.onrender.com/user/login",
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
+      // Store token and user data in local storage
       localStorage.setItem("token", res.data.accessToken);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      alert("Login successful!");
+
+      // Navigate to the home page
       navigate("/home");
     } catch (err) {
+      // Set error message if login fails
       setError(err.response?.data?.msg || "Login failed. Please try again.");
     }
   };
@@ -34,6 +34,7 @@ const Login = () => {
     <div className="login-background">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
+        {/* Display error message if login fails */}
         {error && <p className="error-message">{error}</p>}
         <div className="form-group">
           <input

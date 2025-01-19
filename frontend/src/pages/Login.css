@@ -4,9 +4,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff99ac);
+  background: linear-gradient(135deg, #ff007c, #590fb7, #003bff);
   font-family: "Poppins", sans-serif;
-  animation: gradientShift 4s infinite alternate;
+  animation: gradientShift 6s infinite alternate;
+  overflow: hidden;
 }
 
 /* Background animation */
@@ -19,17 +20,68 @@
   }
 }
 
+/* Floating background shapes */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 10s infinite ease-in-out;
+  z-index: 0;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.shape-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 20%;
+  background: rgba(255, 0, 124, 0.2); /* Neon pink */
+}
+
+.shape-2 {
+  width: 150px;
+  height: 150px;
+  bottom: 20%;
+  left: 10%;
+  background: rgba(89, 15, 183, 0.2); /* Neon purple */
+}
+
+.shape-3 {
+  width: 250px;
+  height: 250px;
+  top: 30%;
+  right: 15%;
+  background: rgba(0, 59, 255, 0.2); /* Neon blue */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 /* Login form styles */
 .login-form {
-  background: #fff;
+  background: rgba(18, 18, 18, 0.95); /* Dark background */
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
   width: 100%;
   max-width: 420px;
   text-align: center;
   animation: formZoomIn 1.5s ease-out;
+  z-index: 1;
   position: relative;
+  border: 2px solid;
+  border-image-source: linear-gradient(135deg, #ff007c, #590fb7, #003bff);
+  border-image-slice: 1;
+  color: #f1f1f1;
 }
 
 /* Form zoom-in animation */
@@ -52,39 +104,59 @@
 .form-group input {
   width: 100%;
   padding: 0.9rem;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   border-radius: 6px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  background-color: #222;
+  color: #f1f1f1;
 }
 
 .form-group input:focus {
-  border-color: #ff6a88;
-  box-shadow: 0 0 10px rgba(255, 106, 136, 0.4);
+  border-color: #ff007c;
+  box-shadow: 0 0 10px rgba(255, 0, 124, 0.6);
   outline: none;
 }
 
 /* Submit button */
 .submit-button {
-  background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+  background: linear-gradient(135deg, #ff007c, #590fb7);
   color: #fff;
   border: none;
   padding: 0.8rem 2rem;
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .submit-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(255, 106, 136, 0.4);
+  box-shadow: 0 8px 15px rgba(255, 0, 124, 0.6);
+}
+
+.submit-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.submit-button:hover:before {
+  width: 100%;
 }
 
 .submit-button:active {
   transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(255, 106, 136, 0.2);
+  box-shadow: 0 4px 10px rgba(255, 0, 124, 0.3);
 }
 
 /* Error message */
@@ -95,58 +167,51 @@
   animation: shake 0.3s ease-in-out;
 }
 
-/* Error message shake animation */
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-}
-
 /* Redirect container */
 .redirect-container {
   position: absolute;
-  top: 85%; /* Adjust to place the text in the middle */
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   animation: fadeUp 1.5s ease-in-out;
 }
 
-/* Fade-up animation for redirect text */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Redirect text at the bottom */
+/* Redirect text */
 .redirect-text {
   font-size: 1rem;
-  color: #e6d6d6;
+  color: #cfcfcf;
 }
 
 .redirect-text .signup-link {
-  color: #280209;
+  color: #ff007c;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .redirect-text .signup-link:hover {
-  color: #5c0419;
+  color: #590fb7;
 }
+
+/* Responsive design */
+@media screen and (max-width: 480px) {
+  .login-form {
+    padding: 2rem;
+    width: 90%;
+  }
+
+  .form-group input {
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  .redirect-text {
+    font-size: 0.9rem;
+  }
+}
+

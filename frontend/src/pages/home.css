@@ -11,6 +11,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   background-color: #000000;
+  
+
 }
 
 /* Hero Section */
@@ -76,7 +78,7 @@ body {
   color: #333;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #242020;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -96,12 +98,13 @@ body {
 .category-card-title {
   font-size: 1.2rem;
   margin: 15px;
+  color: #efe3e3;
 }
 
 .category-card-description {
   font-size: 1rem;
   margin: 0 15px 15px;
-  color: #666;
+  color: #efe3e3;
 }
 
 /* Responsive Design */

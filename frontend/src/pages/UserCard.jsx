@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./EventList.css";
+// import "./EventList.css";
 
-const EventList = () => {
+const UserCard= () => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -182,4 +182,4 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+export default UserCard;

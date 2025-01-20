@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 // Page Components
@@ -8,12 +8,12 @@ import Home from "./pages/Home";
 import HelpCenter from "./pages/HelpCenter";
 import FindEvents from "./pages/FindEvents";
 import Profile from "./pages/Profile";
-import Dashboard from "./pages/AdminDashboard";
+// import Dashboard from "./pages/AdminDashboard";
 import FeaturedEvents from "./component/FeaturedEvent";
 
 // Component-Level Features
 import CreateEventForm from "./component/CreateEventForm";
-import EventCard from './component/EventCard';
+import EventCard from "./component/EventCard";
 import EventList from "./component/EventList";
 import Footer from "./component/Footer";
 import Navbar from "./component/Navbar";
@@ -29,14 +29,16 @@ import AdminDashboard from "./pages/AdminDashboard";
 const App = () => {
   const location = useLocation();
 
-  
-  const hideNavbar = location.pathname === "/login" || location.pathname === "/register";
+  const hideNavbar =
+    location.pathname === "/login" || location.pathname === "/register";
+  const hidefooter =
+    location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div>
       {/* Conditionally Render Navbar */}
       {!hideNavbar && <Navbar />}
-
+      {!hidefooter && <footer />}
       {/* Application Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -58,8 +60,8 @@ const App = () => {
         <Route path="/help" element={<HelpCenter />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/login" element={<AdminLogin />} />
-      <Route path="/signup" element={<AdminSignUp />} />
-      <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/signup" element={<AdminSignUp />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
       </Routes>
 
       {/* Global Footer */}

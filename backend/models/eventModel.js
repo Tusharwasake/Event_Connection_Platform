@@ -33,6 +33,7 @@ const eventSchema = mongoose.Schema(
         "charity",
         "arts",
         "environments",
+        "dance"
       ],
       required: true,
     },

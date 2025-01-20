@@ -1,0 +1,83 @@
+.create-event-form {
+  padding: 20px;
+  max-width: 500px;
+  margin: 20px auto;
+  border: 1px solid #84b347; /* Light border for separation */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #68c344; /* Light blue for a calm and fresh look */
+}
+
+h1 {
+  font-size: 24px;
+  color: #003366; /* Dark blue for strong contrast */
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-field,
+.textarea-field {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #b0c4de; /* Light steel blue for subtle borders */
+  font-size: 14px;
+  background-color: #ffffff; /* Keep fields white for clarity */
+  color: #003366; /* Dark blue for text consistency */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.input-field:focus,
+.textarea-field:focus {
+  border-color: #4682b4; /* Stronger blue highlight on focus */
+  background-color: #e6f7ff; /* Light blue highlight */
+}
+
+.textarea-field {
+  min-height: 80px;
+  max-height: 150px;
+  resize: vertical;
+}
+
+.submit-button {
+  padding: 10px 15px;
+  background-color: #4682b4; /* Medium blue for buttons */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #5a9bd3; /* Slightly lighter blue on hover */
+  transform: scale(1.03); /* Subtle enlargement on hover */
+}
+
+.submit-button.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.message.success {
+  color: #28a745; /* Green for success */
+}
+
+.message.error {
+  color: #dc3545; /* Red for error */
+}

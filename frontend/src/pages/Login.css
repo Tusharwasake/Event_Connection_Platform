@@ -1,152 +1,122 @@
-/* Background for the login page */
-.login-background {
+/* Login.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f9fc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff99ac);
-  font-family: "Poppins", sans-serif;
-  animation: gradientShift 4s infinite alternate;
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Background animation */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Login form styles */
-.login-form {
-  background: #fff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.login-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   text-align: center;
-  animation: formZoomIn 1.5s ease-out;
-  position: relative;
+  box-sizing: border-box;
 }
 
-/* Form zoom-in animation */
-@keyframes formZoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.login-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-/* Form group input fields */
 .form-group {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  color: black;
 }
 
-.form-group input {
+label {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+input {
   width: 100%;
-  padding: 0.9rem;
+  padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
-.form-group input:focus {
-  border-color: #ff6a88;
-  box-shadow: 0 0 10px rgba(255, 106, 136, 0.4);
+input:focus {
   outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
 }
 
-/* Submit button */
 .submit-button {
-  background: linear-gradient(135deg, #ff9a8b, #ff6a88);
-  color: #fff;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 6px;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: #ffffff;
   font-size: 1rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(255, 106, 136, 0.4);
+  background-color: #0056b3;
 }
 
-.submit-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 10px rgba(255, 106, 136, 0.2);
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-/* Error message */
 .error-message {
   color: #ff4d4d;
   font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  animation: shake 0.3s ease-in-out;
+  margin-bottom: 1rem;
 }
 
-/* Error message shake animation */
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-}
-
-/* Redirect container */
 .redirect-container {
-  position: absolute;
-  top: 85%; /* Adjust to place the text in the middle */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  animation: fadeUp 1.5s ease-in-out;
+  margin-top: 1rem;
 }
 
-/* Fade-up animation for redirect text */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.redirect-container p {
+  font-size: 0.9rem;
+  color: #555;
 }
 
-/* Redirect text at the bottom */
-.redirect-text {
-  font-size: 1rem;
-  color: #e6d6d6;
-}
-
-.redirect-text .signup-link {
-  color: #280209;
-  font-weight: bold;
+.signup-link {
+  color: #007bff;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-weight: bold;
 }
 
-.redirect-text .signup-link:hover {
-  color: #5c0419;
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+  box-sizing: border-box;
 }

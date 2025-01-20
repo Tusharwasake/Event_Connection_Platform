@@ -41,6 +41,7 @@ body {
 .form-group {
   margin-bottom: 1rem;
   text-align: left;
+  color: black;
 }
 
 label {

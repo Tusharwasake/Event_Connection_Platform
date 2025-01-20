@@ -1,93 +1,27 @@
-// import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import "./Navbar.css";
-
-// const Navbar = () => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const navigate = useNavigate();
-//   const isLoggedIn = !!localStorage.getItem("token");
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("user");
-//     navigate("/login");
-//   };
-
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//   };
-
-//   return (
-//     <nav className="navbar">
-//       <div className="navbar-container">
-//         {/* Logo */}
-//         <h1 className="logo">
-//           <Link to="/">LinkUp!</Link>
-//         </h1>
-
-//         {/* Search Bar */}
-//         <div className="search-bar">
-//           <span className="icon">&#128269;</span>
-//           <input
-//             type="text"
-//             placeholder="Search events"
-//             className="search-input"
-//           />
-//           <span className="divider"></span>
-//           <span className="icon">&#128205;</span>
-//           <span className="location">Bhopal</span>
-//         </div>
-
-//         {/* Links and Buttons */}
-//         <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
-//           <li>
-//             <Link to="/event" className="nav-item">
-//               Find Events
-//             </Link>
-//           </li>
-//           <li>
-//             <Link to="/createform" className="nav-item">
-//               Create Events
-//             </Link>
-//           </li>
-//           <li>
-//             <Link to="/my-tickets" className="nav-item">
-//               My Tickets
-//             </Link>
-//           </li>
-//           {isLoggedIn ? (
-//             <button className="auth-btn logout-btn" onClick={handleLogout}>
-//               Logout
-//             </button>
-//           ) : (
-//             <Link to="/login" className="auth-btn signin-btn">
-//               Sign In
-//             </Link>
-//           )}
-//         </ul>
-
-//         {/* Burger Menu for Mobile */}
-//         <div className="burger-menu" onClick={toggleMenu}>
-        
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   // State and Hooks
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const [filteredCategories, setFilteredCategories] = useState([]); // Filtered categories state
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
+
+  // Categories for search
+  const categories = [
+    { to: "/music", title: "Music" },
+    { to: "/nightlife", title: "Nightlife" },
+    { to: "/arts", title: "Arts" },
+    { to: "/technology", title: "Technology" },
+    { to: "/health", title: "Health & Wellness" },
+    { to: "/kids", title: "Kids & Family" },
+    { to: "/charity", title: "Charity" },
+    { to: "/gaming", title: "Gaming" },
+    { to: "/environment", title: "Environment" },
+  ];
 
   // Handlers
   const handleLogout = () => {
@@ -100,6 +34,18 @@ const Navbar = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Update filtered categories based on the search query
+  useEffect(() => {
+    const filtered = categories.filter((category) =>
+      category.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredCategories(filtered);
+  }, [searchQuery]);
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -108,21 +54,38 @@ const Navbar = () => {
           <Link to="/">LinkUp!</Link>
         </h1>
 
-        {/* Search Bar Section */}
+        {/* New Search Bar Section */}
         <div className="search-bar">
-          <span className="icon">&#128269;</span>
           <input
             type="text"
-            placeholder="Search events"
+            placeholder="Search categories..."
+            value={searchQuery}
+            onChange={handleSearch}
             className="search-input"
           />
-          <span className="divider"></span>
-          <span className="icon">&#128205;</span>
-          <span className="location">Bhopal</span>
+          {searchQuery && (
+            <div className="search-dropdown">
+              {filteredCategories.map((category, index) => (
+                <Link
+                  key={index}
+                  to={category.to}
+                  className="search-result-item"
+                  onClick={() => setSearchQuery("")} // Clear search query on selection
+                >
+                  {category.title}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Navigation Links Section */}
         <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
+        <li>
+            <Link to="/" className="nav-item">
+              Home
+            </Link>
+          </li>
           <li>
             <Link to="/event" className="nav-item">
               Find Events
@@ -134,8 +97,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/my-tickets" className="nav-item">
-              My Tickets
+            <Link to="/group" className="nav-item">
+              Add connection
             </Link>
           </li>
           {isLoggedIn ? (

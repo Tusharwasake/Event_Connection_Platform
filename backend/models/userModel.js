@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema(
       enum: ["participant", "organizer"],
       default: "participant",
     },
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "userModel" }],
     createdAt: {
       type: Date,
       default: Date.now,

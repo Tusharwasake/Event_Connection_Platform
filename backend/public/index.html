@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friend Group Chat App</title>
+    <script defer src="script.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Friend Group Chat App</h1>
+
+    <section>
+      <h2>Friend Requests</h2>
+      <button id="sendRequest">Send Friend Request</button>
+      <ul id="friendRequests"></ul>
+    </section>
+
+    <section>
+      <h2>Groups</h2>
+      <button id="createGroup">Create Group</button>
+      <ul id="groups"></ul>
+    </section>
+
+    <section>
+      <h2>Chat</h2>
+      <input type="text" id="messageInput" placeholder="Type your message" />
+      <button id="sendMessage">Send Message</button>
+      <ul id="messages"></ul>
+    </section>
+  </body>
+</html>

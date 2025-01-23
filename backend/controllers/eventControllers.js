@@ -38,6 +38,7 @@ const eventCreation = async (req, res) => {
       endDate,
       createdBy,
     };
+    
 
     const createEvent = await eventModel.create(payload);
 

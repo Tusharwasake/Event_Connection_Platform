@@ -88,3 +88,25 @@ const CategoriesPage = () => {
 };
 
 export default CategoriesPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const gridproblem(i,j,currentSum){
+  if(i == M-1 && j == N-1 ){
+    return currentSum
+  }
+  
+}
+
+

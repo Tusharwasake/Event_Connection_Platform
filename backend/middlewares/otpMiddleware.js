@@ -1,7 +1,7 @@
 import { participantModel } from "../models/participantsModel.js";
-import { Group } from "../models/groupModel.js";
+import { lobbyModel } from "../models/lobbyEventModel.js";
 
-const otpChecker = async (req, res) => {
+const otpCheckerMiddlware = async (req, res) => {
   const { userId, groupId } = req.params;
   const { inputCode } = req.body;
 
@@ -11,15 +11,15 @@ const otpChecker = async (req, res) => {
 
     if (isValidOtp) {
       // Add user to the group pool
-      const group = await Group.findById(groupId);
-      if (!group) {
+      const groupLobby = await lobbyModel.findById(groupId);
+      if (!groupLobby) {
         return res.status(404).json({
           message: "Group not found",
         });
       }
 
-      group.participants.push(userId);
-      await group.save();
+      groupLobby.participants.push(userId);
+      await groupLobby.save();
 
       res.status(200).json({
         message: "User added to the group pool",
@@ -35,4 +35,4 @@ const otpChecker = async (req, res) => {
   }
 };
 
-export { otpChecker };
+export { otpCheckerMiddlware };

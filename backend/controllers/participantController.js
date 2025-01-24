@@ -30,8 +30,6 @@ const participants = async (req, res) => {
     const eventId = req.body.eventId;
     const userId = req.user.userId;
 
-    
-
     const newParticipant = await participantModel.create({
       eventId: eventId,
       userId: userId,

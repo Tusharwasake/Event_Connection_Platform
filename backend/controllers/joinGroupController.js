@@ -1,14 +1,20 @@
 import { eventModel } from "../models/eventModel.js";
 import { lobbyModel } from "../models/lobbyEventModel.js";
-import { participants } from "./participantController.js";
 import { userModel } from "../models/userModel.js";
+
 const joinGroupController = async (req, res) => {
-  const userId = req.participant.userId;
-  const eventId = req.participant.eventId;
+  const { userId, eventId } = req.participant || {}; // Ensure participant info is provided
+
+  if (!userId || !eventId) {
+    return res.status(400).json({
+      status: "error",
+      message: "Missing userId or eventId in the request",
+    });
+  }
 
   try {
+    // Find the user
     const user = await userModel.findById(userId);
-
     if (!user) {
       return res.status(404).json({
         status: "error",
@@ -24,9 +30,16 @@ const joinGroupController = async (req, res) => {
       });
     }
 
-    const event = await eventModel.findById({ _id: eventId });
-    const eventobj = event[0];
+    // Find the event by ID
+    const event = await eventModel.findById(eventId);
+    if (!event) {
+      return res.status(404).json({
+        status: "error",
+        message: "Event not found",
+      });
+    }
 
+    // Find or create a lobby for the event
     let lobby = await lobbyModel.findOne({ eventId });
 
     if (!lobby) {
@@ -38,10 +51,14 @@ const joinGroupController = async (req, res) => {
         eventId: eventId,
       });
 
+      // Save the lobby and update the user's lobbyStatus
       await lobby.save();
-
       user.lobbyStatus = true;
       await user.save();
+
+      // Add lobby_id to the request object
+      req.lobby_id = lobby._id;
+
       // Respond with success message and lobby details
       return res.status(200).json({
         status: "success",
@@ -55,8 +72,10 @@ const joinGroupController = async (req, res) => {
         },
       });
     } else {
-      // If the lobby exists, add the user to the participants array (if not already present)
+      // If the lobby exists, check if the user is already in the participants list
       if (lobby.participants.includes(userId)) {
+        req.lobby_id = lobby._id;  // Add lobby_id to the request object
+
         return res.status(200).json({
           status: "success",
           message: "User is already present in the event/lobby",
@@ -69,10 +88,12 @@ const joinGroupController = async (req, res) => {
           },
         });
       } else {
+        // If the user is not in the lobby, add the user to the participants array
         lobby.participants.push(userId);
         await lobby.save();
 
-        // Respond with success message and updated lobby details
+        req.lobby_id = lobby._id;  // Add lobby_id to the request object
+
         return res.status(200).json({
           status: "success",
           message: "Joined the group successfully",

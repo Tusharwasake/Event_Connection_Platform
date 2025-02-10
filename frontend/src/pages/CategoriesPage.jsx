@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const categories = ["music", "nightlife", "gaming", "technology", "charity", "arts", "environments"];
+const categories = [
+  "music",
+  "nightlife",
+  "gaming",
+  "technology",
+  "charity",
+  "arts",
+  "environments",
+];
 
 const CategoriesPage = () => {
   const [data, setData] = useState({});
@@ -48,7 +56,9 @@ const CategoriesPage = () => {
       <main className="container mx-auto px-4 py-8">
         {categories.map((category) => (
           <section key={category} className="mb-12">
-            <h2 className="text-3xl font-semibold mb-4 capitalize">{category}</h2>
+            <h2 className="text-3xl font-semibold mb-4 capitalize">
+              {category}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data[category]?.length > 0 ? (
                 data[category].map((event) => (
@@ -88,25 +98,3 @@ const CategoriesPage = () => {
 };
 
 export default CategoriesPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const gridproblem(i,j,currentSum){
-  if(i == M-1 && j == N-1 ){
-    return currentSum
-  }
-  
-}
-
-

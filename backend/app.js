@@ -12,6 +12,8 @@ import { db } from "./database/datatase.js";
 import { eventRouter } from "./routes/eventRoutes.js";
 import { filterRoutes } from "./routes/filterRoutes.js";
 import { joinGroupRouter } from "./routes/groupLobbyRouter.js";
+import { groupParticipantsRouter } from "./routes/groupParticipantsRoutes.js";
+
 //.env files
 const SERVER_PORT = process.env.PORT;
 
@@ -34,6 +36,7 @@ app.use("/participants", participantRouter);
 app.use("/events", eventRouter);
 app.use("/filter", filterRoutes);
 app.use("/joingroup", joinGroupRouter);
+app.use("/getgroup", groupParticipantsRouter);
 
 //server Start
 app.listen(SERVER_PORT, () => {

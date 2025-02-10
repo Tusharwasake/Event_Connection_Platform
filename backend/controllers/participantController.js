@@ -1,13 +1,15 @@
 import { participantModel } from "../models/participantsModel.js";
 import { eventModel } from "../models/eventModel.js";
-import { mailsender } from "../emailSender/emailsender.js";
+// import { mailsender } from "../emailSender/emailSender.js";
+import mailsender from '../emailSender/emailSender.js';
+
 
 import "dotenv/config";
 
 const generateUniqueCode = async () => {
   let code;
   let isUnique = false;
-  
+
   while (!isUnique) {
     code = Math.floor(1000 + Math.random() * 9000).toString();
 
@@ -29,8 +31,6 @@ const participants = async (req, res) => {
     // console.log(req.user);
     const eventId = req.body.eventId;
     const userId = req.user.userId;
-
-    
 
     const newParticipant = await participantModel.create({
       eventId: eventId,

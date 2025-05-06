@@ -66,7 +66,7 @@ const CreateEventForm = () => {
     const formattedData = { ...formData, category: [formData.category] };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "https://two447-event-connection-platform-2.onrender.com/events",
         formattedData,
         {

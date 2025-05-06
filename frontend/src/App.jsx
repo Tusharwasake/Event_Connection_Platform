@@ -6,6 +6,7 @@ import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import LoadingSpinner from "./component/LoadingSpinner";
 
+
 // Lazy-loaded page components
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));

@@ -1,11 +1,32 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+
+import PropTypes from "prop-types";
+
+EventCard.propTypes = {
+  event: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    featured: PropTypes.bool,
+    imageUrl: PropTypes.string,
+    category: PropTypes.string,
+    startDate: PropTypes.string, // or PropTypes.instanceOf(Date) if you're using Date objects
+    time: PropTypes.string,
+    location: PropTypes.string,
+    attendees: PropTypes.array,
+    description: PropTypes.string,
+    price: PropTypes.number,
+  }).isRequired,
+  isRegistered: PropTypes.bool.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  onViewDetails: PropTypes.func.isRequired,
+};
+
 import {
   MapPin,
   Clock,
   Calendar,
   DollarSign,
   Search,
-  SlidersHorizontal,
   X,
   Users,
   ChevronDown,

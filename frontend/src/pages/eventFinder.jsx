@@ -14,12 +14,13 @@ import {
   Share2,
   ArrowUpRight,
   Star,
+  AlertCircle,
 } from "lucide-react";
-import PropTypes from "prop-types";
-import "./FindEvents.css";
+import axios from "axios";
+import "./EventFinder.css";
 
 // Event Card Component
-const EventCard = ({ event, onViewDetails }) => {
+const EventCard = ({ event, isRegistered, onRegister, onViewDetails }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -50,11 +51,16 @@ const EventCard = ({ event, onViewDetails }) => {
   const handleShare = (e) => {
     e.stopPropagation();
     // In a real app, this would open a share dialog
-    alert(`Share event: ${event.title}`);
+    alert(`Share event: ${event.name}`);
+  };
+
+  const handleRegister = (e) => {
+    e.stopPropagation();
+    onRegister(event._id);
   };
 
   const getEventBadge = () => {
-    if (event.isFeatured) {
+    if (event.featured) {
       return (
         <div className="event-featured-badge">
           <Star size={12} />
@@ -68,12 +74,16 @@ const EventCard = ({ event, onViewDetails }) => {
   return (
     <div
       className="event-card"
-      onClick={() => onViewDetails(event.id)}
+      onClick={() => onViewDetails(event._id)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="event-image">
-        <img src={event.image} alt={event.title} loading="lazy" />
+        <img
+          src={event.imageUrl || "/api/placeholder/400/200"}
+          alt={event.name}
+          loading="lazy"
+        />
         <div
           className="event-category"
           style={{ backgroundColor: getCategoryColor(event.category) }}
@@ -108,23 +118,23 @@ const EventCard = ({ event, onViewDetails }) => {
       <div className="event-content">
         <div className="event-date-badge">
           <div className="event-month">
-            {new Date(event.date)
+            {new Date(event.startDate)
               .toLocaleString("default", { month: "short" })
               .toUpperCase()}
           </div>
-          <div className="event-day">{new Date(event.date).getDate()}</div>
+          <div className="event-day">{new Date(event.startDate).getDate()}</div>
         </div>
 
-        <h3 className="event-title">{event.title}</h3>
+        <h3 className="event-title">{event.name}</h3>
 
         <div className="event-details">
           <div className="event-detail">
             <Calendar size={16} />
-            <span>{formatDate(event.date)}</span>
+            <span>{formatDate(event.startDate)}</span>
           </div>
           <div className="event-detail">
             <Clock size={16} />
-            <span>{event.time}</span>
+            <span>{event.time || "All day"}</span>
           </div>
           <div className="event-detail">
             <MapPin size={16} />
@@ -132,7 +142,7 @@ const EventCard = ({ event, onViewDetails }) => {
           </div>
           <div className="event-detail">
             <Users size={16} />
-            <span>{event.attendees} attending</span>
+            <span>{event.attendees || 0} attending</span>
           </div>
         </div>
 
@@ -141,30 +151,19 @@ const EventCard = ({ event, onViewDetails }) => {
         <div className="event-footer">
           <div className="event-price">
             <DollarSign size={18} />
-            <span>${event.price}</span>
+            <span>${event.price || 0}</span>
           </div>
-          <button className="event-details-btn">View Details</button>
+          <button
+            className={`event-register-btn ${isRegistered ? "registered" : ""}`}
+            onClick={handleRegister}
+            disabled={isRegistered}
+          >
+            {isRegistered ? "Registered" : "Register Now"}
+          </button>
         </div>
       </div>
     </div>
   );
-};
-
-EventCard.propTypes = {
-  event: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    attendees: PropTypes.number.isRequired,
-    isFeatured: PropTypes.bool,
-  }).isRequired,
-  onViewDetails: PropTypes.func.isRequired,
 };
 
 // Filter Badge Component
@@ -181,11 +180,6 @@ const FilterBadge = ({ label, onRemove }) => (
   </div>
 );
 
-FilterBadge.propTypes = {
-  label: PropTypes.string.isRequired,
-  onRemove: PropTypes.func.isRequired,
-};
-
 // Empty State Component
 const EmptyState = ({ onClearFilters }) => (
   <div className="no-events">
@@ -198,132 +192,34 @@ const EmptyState = ({ onClearFilters }) => (
   </div>
 );
 
-EmptyState.propTypes = {
-  onClearFilters: PropTypes.func.isRequired,
+// Toast notification component
+const Toast = ({ message, type, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className={`toast ${type}`}>
+      {type === "error" ? <AlertCircle size={18} /> : null}
+      <p>{message}</p>
+      <button
+        onClick={onClose}
+        className="toast-close"
+        aria-label="Close notification"
+      >
+        ×
+      </button>
+    </div>
+  );
 };
 
-// Sample event data - in a real app this would come from an API
-const initialEvents = [
-  {
-    id: 1,
-    title: "Summer Music Festival",
-    date: "2025-07-15",
-    time: "4:00 PM - 11:00 PM",
-    location: "Central Park",
-    category: "Music",
-    image:
-      "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1000&auto=format&fit=crop",
-    description:
-      "Annual outdoor music festival featuring local and international artists",
-    price: 50,
-    attendees: 243,
-    isFeatured: true,
-  },
-  {
-    id: 2,
-    title: "Tech Conference 2025",
-    date: "2025-03-20",
-    time: "9:00 AM - 5:00 PM",
-    location: "Convention Center",
-    category: "Technology",
-    image:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop",
-    description: "Leading tech conference with industry experts and workshops",
-    price: 199,
-    attendees: 127,
-    isFeatured: true,
-  },
-  {
-    id: 3,
-    title: "Food & Wine Expo",
-    date: "2025-05-10",
-    time: "12:00 PM - 8:00 PM",
-    location: "Downtown Plaza",
-    category: "Food",
-    image:
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop",
-    description: "Culinary experience featuring local restaurants and wineries",
-    price: 75,
-    attendees: 189,
-    isFeatured: false,
-  },
-  {
-    id: 4,
-    title: "Art Exhibition Opening",
-    date: "2025-04-05",
-    time: "6:00 PM - 9:00 PM",
-    location: "Modern Art Gallery",
-    category: "Arts",
-    image:
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=1000&auto=format&fit=crop",
-    description: "Opening night for the new contemporary art exhibition",
-    price: 25,
-    attendees: 95,
-    isFeatured: false,
-  },
-  {
-    id: 5,
-    title: "Charity Run for Nature",
-    date: "2025-06-12",
-    time: "8:00 AM - 12:00 PM",
-    location: "Riverside Park",
-    category: "Charity",
-    image:
-      "https://images.unsplash.com/photo-1509609694231-be924f9737e4?q=80&w=1000&auto=format&fit=crop",
-    description:
-      "Annual charity run to raise funds for environmental conservation",
-    price: 30,
-    attendees: 348,
-    isFeatured: false,
-  },
-  {
-    id: 6,
-    title: "Gaming Convention",
-    date: "2025-09-18",
-    time: "10:00 AM - 8:00 PM",
-    location: "Expo Center",
-    category: "Gaming",
-    image:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop",
-    description:
-      "The biggest gaming event of the year with previews of upcoming releases",
-    price: 45,
-    attendees: 512,
-    isFeatured: true,
-  },
-  {
-    id: 7,
-    title: "Sustainable Living Workshop",
-    date: "2025-08-22",
-    time: "1:00 PM - 5:00 PM",
-    location: "Community Center",
-    category: "Environment",
-    image:
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop",
-    description:
-      "Learn practical tips and techniques for a more sustainable lifestyle",
-    price: 15,
-    attendees: 78,
-    isFeatured: false,
-  },
-  {
-    id: 8,
-    title: "Comedy Night Spectacular",
-    date: "2025-05-30",
-    time: "8:00 PM - 11:00 PM",
-    location: "Laugh Factory",
-    category: "Entertainment",
-    image:
-      "https://images.unsplash.com/photo-1527224857830-43a7acc85260?q=80&w=1000&auto=format&fit=crop",
-    description:
-      "A night of laughter featuring top comedians from around the country",
-    price: 35,
-    attendees: 215,
-    isFeatured: false,
-  },
-];
-
-const FindEvents = () => {
+// Main EventFinder Component
+const EventFinder = () => {
+  // State management
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -335,10 +231,24 @@ const FindEvents = () => {
   const [viewMode, setViewMode] = useState("grid"); // grid or list
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [toast, setToast] = useState({ show: false, message: "", type: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [error, setError] = useState("");
+  const [registeredEvents, setRegisteredEvents] = useState(() => {
+    try {
+      const stored = localStorage.getItem("registeredEvents");
+      return stored ? JSON.parse(stored) : [];
+    } catch (err) {
+      console.error("Error parsing stored events:", err);
+      return [];
+    }
+  });
 
   const filtersRef = useRef(null);
   const searchInputRef = useRef(null);
   const contentRef = useRef(null);
+  const eventsPerPage = 6;
 
   // Handle scroll position to show/hide fixed search bar
   useEffect(() => {
@@ -350,15 +260,62 @@ const FindEvents = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fetch events from API
   useEffect(() => {
-    // Simulate loading data from API
-    const timer = setTimeout(() => {
-      setEvents(initialEvents);
-      setFilteredEvents(initialEvents);
-      setIsLoading(false);
-    }, 800);
+    const fetchEvents = async () => {
+      const token = localStorage.getItem("token");
 
-    return () => clearTimeout(timer);
+      try {
+        // In a real app, you'd check token validity and redirect if needed
+        const response = await axios.get(
+          "https://two447-event-connection-platform-2.onrender.com/events",
+          token
+            ? {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            : {}
+        );
+
+        if (response.data && response.data.data) {
+          // Process and normalize the API data
+          const processedEvents = response.data.data.map((event) => ({
+            ...event,
+            // Set default category if none exists
+            category: event.category || "Entertainment",
+            // Generate price if none exists
+            price: event.price || Math.floor(Math.random() * 100) + 10,
+          }));
+
+          setEvents(processedEvents);
+          setFilteredEvents(processedEvents);
+        } else {
+          setError("No events found");
+        }
+      } catch (err) {
+        console.error("Error fetching events:", err);
+        setError(
+          err.response?.data?.message ||
+            "Failed to load events. Please try again later."
+        );
+        // Fallback to empty array
+        setEvents([]);
+        setFilteredEvents([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const showToast = useCallback((message, type = "success") => {
+    setToast({ show: true, message, type });
+  }, []);
+
+  const closeToast = useCallback(() => {
+    setToast({ show: false, message: "", type: "" });
   }, []);
 
   const applyFilters = useCallback(() => {
@@ -369,7 +326,7 @@ const FindEvents = () => {
     if (searchTerm) {
       filtered = filtered.filter(
         (event) =>
-          event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
           event.location.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -419,21 +376,39 @@ const FindEvents = () => {
     filtered.sort((a, b) => {
       switch (sortOption) {
         case "date":
-          return new Date(a.date) - new Date(b.date);
+          return new Date(a.startDate) - new Date(b.startDate);
         case "price-low":
           return a.price - b.price;
         case "price-high":
           return b.price - a.price;
         case "popularity":
-          return b.attendees - a.attendees;
+          return (b.attendees || 0) - (a.attendees || 0);
         default:
-          return new Date(a.date) - new Date(b.date);
+          return new Date(a.startDate) - new Date(b.startDate);
       }
     });
 
+    // Apply pagination calculation
+    setTotalPages(Math.ceil(filtered.length / eventsPerPage));
+
+    // Keep the full filtered list for pagination
     setFilteredEvents(filtered);
     setAppliedFilters(newAppliedFilters);
-  }, [events, searchTerm, selectedCategory, priceRange, sortOption]);
+  }, [
+    events,
+    searchTerm,
+    selectedCategory,
+    priceRange,
+    sortOption,
+    eventsPerPage,
+  ]);
+
+  // Calculate paginated events
+  const getPaginatedEvents = useCallback(() => {
+    const indexOfLastEvent = currentPage * eventsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+    return filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+  }, [filteredEvents, currentPage, eventsPerPage]);
 
   useEffect(() => {
     applyFilters();
@@ -445,6 +420,14 @@ const FindEvents = () => {
     events,
     applyFilters,
   ]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // Scroll to top of event list for better UX
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
@@ -459,6 +442,7 @@ const FindEvents = () => {
     setSelectedCategory("");
     setPriceRange("all");
     setSortOption("date");
+    setCurrentPage(1);
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
@@ -478,6 +462,27 @@ const FindEvents = () => {
       default:
         break;
     }
+    setCurrentPage(1);
+  };
+
+  const handleRegister = (eventId) => {
+    if (registeredEvents.includes(eventId)) {
+      return;
+    }
+
+    try {
+      // In a real app, you would make an API call here
+      const updatedRegisteredEvents = [...registeredEvents, eventId];
+      setRegisteredEvents(updatedRegisteredEvents);
+      localStorage.setItem(
+        "registeredEvents",
+        JSON.stringify(updatedRegisteredEvents)
+      );
+      showToast("Successfully registered for the event!");
+    } catch (err) {
+      console.error("Registration error:", err);
+      showToast("Failed to register for the event. Please try again.", "error");
+    }
   };
 
   const handleViewDetails = (eventId) => {
@@ -486,12 +491,22 @@ const FindEvents = () => {
   };
 
   // Get unique categories from events
-  const categories = [...new Set(events.map((event) => event.category))];
+  const categories = [
+    ...new Set(events.map((event) => event.category).filter(Boolean)),
+  ];
+
+  // Current paginated events to display
+  const currentEvents = getPaginatedEvents();
 
   return (
-    <div className="find-events-container">
+    <div className="event-finder-container">
+      {/* Toast notification */}
+      {toast.show && (
+        <Toast message={toast.message} type={toast.type} onClose={closeToast} />
+      )}
+
       {/* Hero section with parallax effect */}
-      <div className="find-events-header">
+      <div className="event-finder-header">
         <div className="header-background"></div>
         <div className="header-content">
           <h1>Discover Amazing Events</h1>
@@ -548,7 +563,7 @@ const FindEvents = () => {
         </div>
       </div>
 
-      <div className="find-events-content" ref={contentRef}>
+      <div className="event-finder-content" ref={contentRef}>
         <div className="search-filters-container" ref={filtersRef}>
           <div className="filters-row">
             <div className="search-bar desktop-hidden">
@@ -709,6 +724,15 @@ const FindEvents = () => {
           </p>
         </div>
 
+        {/* Error state */}
+        {error && !isLoading && !events.length && (
+          <div className="events-container error">
+            <AlertCircle size={48} />
+            <h2>Unable to load events</h2>
+            <p>{error}</p>
+          </div>
+        )}
+
         {/* Loading Skeleton */}
         {isLoading ? (
           <div className={`skeleton-grid ${viewMode}`}>
@@ -729,18 +753,48 @@ const FindEvents = () => {
         ) : (
           <>
             {/* Events Grid */}
-            {filteredEvents.length > 0 ? (
+            {currentEvents.length > 0 ? (
               <div className={`events-grid ${viewMode}`}>
-                {filteredEvents.map((event) => (
+                {currentEvents.map((event) => (
                   <EventCard
-                    key={event.id}
+                    key={event._id}
                     event={event}
+                    isRegistered={registeredEvents.includes(event._id)}
+                    onRegister={handleRegister}
                     onViewDetails={handleViewDetails}
                   />
                 ))}
               </div>
             ) : (
               <EmptyState onClearFilters={clearAllFilters} />
+            )}
+
+            {/* Pagination */}
+            {filteredEvents.length > eventsPerPage && (
+              <div className="pagination">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="pagination-btn"
+                  aria-label="Go to previous page"
+                >
+                  Previous
+                </button>
+
+                <div className="pagination-info">
+                  <span className="visually-hidden">Current page</span>
+                  Page {currentPage} of {totalPages || 1}
+                </div>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages || totalPages === 0}
+                  className="pagination-btn"
+                  aria-label="Go to next page"
+                >
+                  Next
+                </button>
+              </div>
             )}
           </>
         )}
@@ -749,4 +803,4 @@ const FindEvents = () => {
   );
 };
 
-export default FindEvents;
+export default EventFinder;

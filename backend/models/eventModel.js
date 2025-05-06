@@ -25,15 +25,6 @@ const eventSchema = mongoose.Schema(
     },
     category: {
       type: [String],
-      enum: [
-        "music",
-        "nightlife",
-        "gaming",
-        "technology",
-        "charity",
-        "arts",
-        "environments",
-      ],
       required: true,
     },
     imageUrl: {

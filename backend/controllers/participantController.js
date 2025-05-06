@@ -1,10 +1,7 @@
 import { participantModel } from "../models/participantsModel.js";
 import { eventModel } from "../models/eventModel.js";
-// import { mailsender } from "../emailSender/emailSender.js";
-// import mailsender from '../emailSender/emailSender.js';
-import * as mailsender from '../emailSender/emailSender.js';
 
-
+import * as mailsender from "../emailSender/emailSender.js";
 
 import "dotenv/config";
 

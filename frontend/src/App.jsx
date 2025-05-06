@@ -1,76 +1,85 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-// Page Components
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import HelpCenter from "./pages/HelpCenter";
-import FindEvents from "./pages/FindEvents";
-import Profile from "./pages/Profile";
-import Dashboard from "./pages/AdminDashboard";
-import FeaturedEvents from "./component/FeaturedEvent";
-
-// Component-Level Features
-import CreateEventForm from "./component/CreateEventForm";
-import EventCard from "./component/EventCard";
-import EventList from "./component/EventList";
-import Footer from "./component/Footer";
+// Layout Components
 import Navbar from "./component/Navbar";
-import Music from "./event/Musics";
-import CreateEvent from "./pages/CreateEvent";
-import Features from "./pages/Features";
-import Nightlife from "./event/NightLife";
-import CategoriesPage from "./pages/CategoriesPage";
-import AdminLogin from "./pages/AdminLogin";
-import AdminSignUp from "./pages/AdminSignUp";
-import AdminDashboard from "./pages/AdminDashboard";
-import EventGroup from "./component/EventGroup";
-import UserCard from "./pages/UserCard"
+import Footer from "./component/Footer";
+import LoadingSpinner from "./component/LoadingSpinner";
+
+// Lazy-loaded page components
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Home = lazy(() => import("./pages/Home"));
+const HelpCenter = lazy(() => import("./pages/HelpCenter"));
+const FindEvents = lazy(() => import("./pages/FindEvents"));
+const Profile = lazy(() => import("./pages/Profile"));
+const CreateEvent = lazy(() => import("./pages/CreateEvent"));
+const Features = lazy(() => import("./pages/Features"));
+const CategoriesPage = lazy(() => import("./pages/CategoriesPage"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminSignUp = lazy(() => import("./pages/AdminSignUp"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const UserCard = lazy(() => import("./pages/UserCard"));
+const EventFinder = lazy(() => import("./pages/eventFinder"));
+
+// Lazy-loaded components and feature sections
+const CreateEventForm = lazy(() => import("./component/CreateEventForm"));
+
+const EventList = lazy(() => import("./component/EventList"));
+const FeaturedEvents = lazy(() => import("./component/FeaturedEvent"));
+const EventGroup = lazy(() => import("./component/EventGroup"));
+const Music = lazy(() => import("./event/Musics"));
+const Nightlife = lazy(() => import("./event/NightLife"));
+
+// Route configuration array for better maintainability
+const routes = [
+  { path: "/", element: <Home /> },
+  { path: "/home", element: <Home /> },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/help-center", element: <HelpCenter /> },
+  { path: "/help", element: <HelpCenter /> },
+  { path: "/find-events", element: <EventFinder /> },
+  { path: "/profile/:id", element: <Profile /> },
+  { path: "/profile", element: <Profile /> },
+  { path: "/createform", element: <CreateEvent /> },
+  { path: "/events", element: <EventFinder /> },
+  { path: "/music", element: <Music /> },
+  { path: "/event", element: <EventFinder /> },
+  { path: "/nightlife", element: <Nightlife /> },
+  { path: "/categories", element: <CategoriesPage /> },
+  { path: "/signup", element: <AdminSignUp /> },
+  { path: "/dashboard", element: <AdminDashboard /> },
+  { path: "/group", element: <EventGroup /> },
+  { path: "/user", element: <UserCard /> },
+];
+
+// Set of paths where Navbar and Footer should be hidden
+const hiddenNavbarFooterPaths = new Set(["/login", "/register"]);
 
 const App = () => {
   const location = useLocation();
-
-  // Hide Navbar and Footer on Login and Register Pages
-  const hideNavbar = location.pathname === "/login" || location.pathname === "/register";
-  const hideFooter = location.pathname === "/login" || location.pathname === "/register";
+  const showNavbarFooter = !hiddenNavbarFooterPaths.has(location.pathname);
 
   return (
-    <div >
-      {/* Conditionally Render Navbar */}
-    
-      {!hideNavbar && <Navbar />}
-      {/* Application Routes */}
-      <div style={{ flex: "1" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/help-center" element={<HelpCenter />} />
-          <Route path="/find-events" element={<FindEvents />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create" element={<CreateEvent />} />
-          <Route path="/createform" element={<CreateEventForm />} />
-          <Route path="/eventcard" element={<EventCard />} />
-          <Route path="/events" element={<FeaturedEvents />} />
-          <Route path="/music" element={<Music />} />
-          <Route path="/event" element={<EventList />} />
-          <Route path="/mansab" element={<Features />} />
-          <Route path="/nightlife" element={<Nightlife />} />
-          <Route path="/help" element={<HelpCenter />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/login" element={<AdminLogin />} />
-          <Route path="/signup" element={<AdminSignUp />} />
-          <Route path="/dashboard" element={<AdminDashboard />} />
-          <Route path="/group" element={<EventGroup />} />
-          <Route path="/user" element={<UserCard/>} />
-        </Routes>
-      </div>
+    <div className="flex flex-col min-h-screen">
+      {showNavbarFooter && <Navbar />}
 
-      {/* Conditionally Render Footer */}
-      {!hideFooter && <Footer />}
+      <main className="flex-grow">
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Routes>
+        </Suspense>
+      </main>
+
+      {showNavbarFooter && <Footer />}
     </div>
   );
 };

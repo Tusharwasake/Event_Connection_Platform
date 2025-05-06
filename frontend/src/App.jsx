@@ -11,25 +11,23 @@ const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 const Home = lazy(() => import("./pages/Home"));
 const HelpCenter = lazy(() => import("./pages/HelpCenter"));
-const FindEvents = lazy(() => import("./pages/FindEvents"));
+// const FindEvents = lazy(() => import("./pages/FindEvents"));
 const Profile = lazy(() => import("./pages/Profile"));
 const CreateEvent = lazy(() => import("./pages/CreateEvent"));
-const Features = lazy(() => import("./pages/Features"));
+// const Features = lazy(() => import("./pages/Features"));
 const CategoriesPage = lazy(() => import("./pages/CategoriesPage"));
-const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+// const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminSignUp = lazy(() => import("./pages/AdminSignUp"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const UserCard = lazy(() => import("./pages/UserCard"));
 const EventFinder = lazy(() => import("./pages/eventFinder"));
 
 // Lazy-loaded components and feature sections
-const CreateEventForm = lazy(() => import("./component/CreateEventForm"));
+// const CreateEventForm = lazy(() => import("./component/CreateEventForm"));
 
-const EventList = lazy(() => import("./component/EventList"));
-const FeaturedEvents = lazy(() => import("./component/FeaturedEvent"));
+// const EventList = lazy(() => import("./component/EventList"));
+// const FeaturedEvents = lazy(() => import("./component/FeaturedEvent"));
 const EventGroup = lazy(() => import("./component/EventGroup"));
-const Music = lazy(() => import("./event/Musics"));
-const Nightlife = lazy(() => import("./event/NightLife"));
 
 // Route configuration array for better maintainability
 const routes = [
@@ -44,9 +42,8 @@ const routes = [
   { path: "/profile", element: <Profile /> },
   { path: "/createform", element: <CreateEvent /> },
   { path: "/events", element: <EventFinder /> },
-  { path: "/music", element: <Music /> },
   { path: "/event", element: <EventFinder /> },
-  { path: "/nightlife", element: <Nightlife /> },
+
   { path: "/categories", element: <CategoriesPage /> },
   { path: "/signup", element: <AdminSignUp /> },
   { path: "/dashboard", element: <AdminDashboard /> },

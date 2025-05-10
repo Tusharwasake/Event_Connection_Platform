@@ -2,12 +2,8 @@ import { participantModel } from "../models/participantsModel.js";
 
 const joinGroupAuthentication = async (req, res, next) => {
   const userId = req.user.userId;
-
   const groupId = req.params.groupId;
-
   const enterOtp = req.body.otp;
-
-  console.log(userId, groupId, enterOtp);
 
   if (!userId || !groupId) {
     return res.json({
@@ -47,3 +43,5 @@ const joinGroupAuthentication = async (req, res, next) => {
 };
 
 export { joinGroupAuthentication };
+
+

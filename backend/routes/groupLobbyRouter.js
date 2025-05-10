@@ -6,6 +6,6 @@ import { joinGroupController } from "../controllers/joinGroupController.js";
 
 const joinGroupRouter = Router();
 joinGroupRouter.use(authentication);
-joinGroupRouter.use("/:groupId", joinGroupAuthentication, joinGroupController);
+joinGroupRouter.post("/:groupId", joinGroupAuthentication, joinGroupController);
 
 export { joinGroupRouter };
